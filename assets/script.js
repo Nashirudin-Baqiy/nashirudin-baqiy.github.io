@@ -2,12 +2,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mobile Navigation Toggle
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
-    
+
     hamburger.addEventListener('click', function() {
         navLinks.classList.toggle('active');
         hamburger.classList.toggle('active');
     });
-    
+
     // Close mobile menu when clicking a navigation link
     const navItems = document.querySelectorAll('.nav-links li a');
     navItems.forEach(item => {
@@ -16,38 +16,38 @@ document.addEventListener('DOMContentLoaded', function() {
             hamburger.classList.remove('active');
         });
     });
-    
+
     // Smooth scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
-            
+
             const targetId = this.getAttribute('href');
             const targetElement = document.querySelector(targetId);
-            
+
             if (targetElement) {
                 window.scrollTo({
-                    top: targetElement.offsetTop - 70,
+                    top: targetElement.offsetTop - 70, // Adjust based on your fixed header height
                     behavior: 'smooth'
                 });
             }
         });
     });
-    
+
     // Project filtering functionality
     const filterButtons = document.querySelectorAll('.filter-btn');
     const projectCards = document.querySelectorAll('.project-card');
-    
+
     filterButtons.forEach(button => {
         button.addEventListener('click', function() {
             // Remove active class from all buttons
             filterButtons.forEach(btn => btn.classList.remove('active'));
-            
+
             // Add active class to clicked button
             this.classList.add('active');
-            
+
             const filterValue = this.getAttribute('data-filter');
-            
+
             projectCards.forEach(card => {
                 if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
                     card.style.display = 'block';
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
-    
+
     // Responsibilities hide/unhide
     const toggleButtons = document.querySelectorAll('.toggle-btn');
     const jobCards = document.querySelectorAll('.job-card');
@@ -88,27 +88,27 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
+
     // Reveal animations on scroll
     function revealElements() {
         const sections = document.querySelectorAll('section');
-        
+
         sections.forEach(section => {
             const sectionTop = section.getBoundingClientRect().top;
             const windowHeight = window.innerHeight;
-            
+
             if (sectionTop < windowHeight - 100) {
                 section.classList.add('revealed');
             }
         });
     }
-    
+
     window.addEventListener('scroll', revealElements);
     window.addEventListener('load', revealElements);
-    
+
     // Optional: Header scroll effect
     const header = document.querySelector('header');
-    
+
     function scrollHeader() {
         if (window.scrollY > 50) {
             header.classList.add('scrolled');
@@ -116,6 +116,6 @@ document.addEventListener('DOMContentLoaded', function() {
             header.classList.remove('scrolled');
         }
     }
-    
+
     window.addEventListener('scroll', scrollHeader);
 });
