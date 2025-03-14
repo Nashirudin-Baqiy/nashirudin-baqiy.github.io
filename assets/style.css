@@ -203,7 +203,7 @@ nav {
     display: flex;
     align-items: center;
     background-color: var(--light-bg);
-    position: absolute;
+    position: relative;
     overflow: hidden;
 }
 
