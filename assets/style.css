@@ -203,13 +203,13 @@ nav {
     display: flex;
     align-items: center;
     background-color: var(--light-bg);
-    position: relative;
+    position: absolute;
     overflow: hidden;
 }
 
 .hero::before {
     content: '';
-    position: relative;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
