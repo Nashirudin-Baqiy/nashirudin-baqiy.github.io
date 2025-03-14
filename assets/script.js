@@ -1,15 +1,19 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Mobile Navigation Toggle
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
+    const navItems = document.querySelectorAll('.nav-links li a');
+    const toggleButtons = document.querySelectorAll('.toggle-btn');
+    const jobCards = document.querySelectorAll('.job-card');
+    const sections = document.querySelectorAll('section');
+    const header = document.querySelector('header');
 
+    // Mobile Navigation Toggle
     hamburger.addEventListener('click', function() {
         navLinks.classList.toggle('active');
         hamburger.classList.toggle('active');
     });
 
     // Close mobile menu when clicking a navigation link
-    const navItems = document.querySelectorAll('.nav-links li a');
     navItems.forEach(item => {
         item.addEventListener('click', function() {
             navLinks.classList.remove('active');
@@ -21,13 +25,11 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
-
             const targetId = this.getAttribute('href');
             const targetElement = document.querySelector(targetId);
-
             if (targetElement) {
                 window.scrollTo({
-                    top: targetElement.offsetTop - 70, // Adjust based on your fixed header height
+                    top: targetElement.offsetTop - 70,
                     behavior: 'smooth'
                 });
             }
@@ -35,30 +37,29 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Responsibilities hide/unhide
-    const toggleButtons = document.querySelectorAll('.toggle-btn');
-    const jobCards = document.querySelectorAll('.job-card');
-
     toggleButtons.forEach(button => {
         button.addEventListener('click', function() {
             const responsibilities = this.nextElementSibling;
             const jobCard = this.closest('.job-card');
+            const mediaQuery = window.matchMedia('(max-width: 992px)');
 
             if (responsibilities.style.display === 'none' || responsibilities.style.display === '') {
-                // Hide all job cards
-                jobCards.forEach(card => {
-                    card.style.display = 'none';
-                });
-                // Show the selected job card and its responsibilities
                 jobCard.style.display = 'block';
-                jobCard.classList.add('expanded');
+                if (!mediaQuery.matches) {
+                    jobCards.forEach(card => {
+                        card.style.display = 'none';
+                    });
+                    jobCard.classList.add('expanded');
+                }
                 responsibilities.style.display = 'block';
                 this.textContent = 'Hide Responsibilities';
             } else {
-                // Show all job cards and hide the responsibilities
-                jobCards.forEach(card => {
-                    card.style.display = 'block';
-                    card.classList.remove('expanded');
-                });
+                if (!mediaQuery.matches) {
+                    jobCards.forEach(card => {
+                        card.style.display = 'block';
+                        card.classList.remove('expanded');
+                    });
+                }
                 responsibilities.style.display = 'none';
                 this.textContent = 'Show Responsibilities';
             }
@@ -67,12 +68,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Reveal animations on scroll
     function revealElements() {
-        const sections = document.querySelectorAll('section');
-
         sections.forEach(section => {
             const sectionTop = section.getBoundingClientRect().top;
             const windowHeight = window.innerHeight;
-
             if (sectionTop < windowHeight - 100) {
                 section.classList.add('revealed');
             }
@@ -82,9 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', revealElements);
     window.addEventListener('load', revealElements);
 
-    // Optional: Header scroll effect
-    const header = document.querySelector('header');
-
+    // Header scroll effect
     function scrollHeader() {
         if (window.scrollY > 50) {
             header.classList.add('scrolled');
