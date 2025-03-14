@@ -204,7 +204,7 @@ nav {
     align-items: center;
     background-color: var(--light-bg);
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .hero::before {
